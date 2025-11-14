@@ -92,9 +92,7 @@
 配置文件默认保存在用户目录：
 - Windows: %USERPROFILE%\AppData\Local\IPADownload\config.json
 - macOS/Linux: ~/.ipadownload/config.json
-
-仓库已忽略 config.json，不会被提交；请注意保护包含账号密码的字段。
-
+ 
 包含以下选项：
 
 ```json
@@ -141,13 +139,13 @@
 
 ## 安全说明
 
-⚠️ **重要提示**:
-
-1. 仅下载你已购买或有权使用的应用
-2. 配置文件以明文存储，注意保护；请勿将包含账号密码的 config.json 提交到版本库（已在 .gitignore 中忽略）
-3. 不要在公共计算机上使用"记住凭据"功能
-4. 登录可能需要双重认证，请按提示输入 6 位验证码
-5. IPA 文件已加密，需要对应 Apple ID 才能安装
+ ⚠️ **重要提示**:
+ 
+ 1. 仅下载你已购买或有权使用的应用
+ 2. 配置文件以明文存储，注意保护
+ 3. 不要在公共计算机上使用"记住凭据"功能
+ 4. 登录可能需要双重认证，请按提示输入 6 位验证码
+ 5. IPA 文件已加密，需要对应 Apple ID 才能安装
 
 ## 开发说明
 
@@ -166,7 +164,7 @@ ipadownload/
     └── workers.py      # 后台线程
 ```
 
-注：config.json 默认保存在用户目录（Windows: %USERPROFILE%\AppData\Local\IPADownload\config.json；macOS/Linux: ~/.ipadownload/config.json），并已在 .gitignore 中忽略。
+
 
 ### 打包为可执行文件
 
