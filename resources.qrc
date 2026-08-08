@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC>
+  <qresource prefix="/icons">
+    <file alias="ipatool.png">icons/ipatool.png</file>
+    <file alias="app_icon.png">icons/app_icon.png</file>
+  </qresource>
+</RCC>

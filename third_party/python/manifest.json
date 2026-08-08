@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "build_environment": {
+    "python": "3.11.15",
+    "platform": "Windows x86-64"
+  },
+  "packages": [
+    {
+      "name": "PyQt6",
+      "version": "6.11.0",
+      "source": "https://pypi.org/project/PyQt6/6.11.0/",
+      "license_metadata": "GPL-3.0-only",
+      "license_path": "third_party/python/PyQt6/6.11.0/LICENSE",
+      "license_size_bytes": 35147,
+      "license_sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "name": "PyQt6-Qt6",
+      "version": "6.11.1",
+      "source": "https://pypi.org/project/PyQt6-Qt6/6.11.1/",
+      "license_metadata": "LGPL v3",
+      "license_path": "third_party/python/PyQt6-Qt6/6.11.1/LICENSE",
+      "license_size_bytes": 7687,
+      "license_sha256": "6c671e2912ec69c0832f32066c0313cee5fdc3bbcbce237822e89f3da58edd4e"
+    },
+    {
+      "name": "PyQt6-sip",
+      "version": "13.12.0",
+      "source": "https://pypi.org/project/PyQt6-sip/13.12.0/",
+      "license_metadata": "BSD-2-Clause",
+      "license_path": "third_party/python/PyQt6-sip/13.12.0/LICENSE",
+      "license_size_bytes": 1304,
+      "license_sha256": "3e6f5b427c36f94ecf86bc01698af7030a1ed6eb3748110d5dbb8d142d804611"
+    },
+    {
+      "name": "PyInstaller",
+      "version": "6.21.0",
+      "source": "https://pypi.org/project/pyinstaller/6.21.0/",
+      "license_metadata": "GPLv2-or-later with a special exception which allows to use PyInstaller to build and distribute non-free programs (including commercial ones)",
+      "license_path": "third_party/python/PyInstaller/6.21.0/COPYING.txt",
+      "license_size_bytes": 32138,
+      "license_sha256": "dcf75fdb959db1e3b41c0f8505069d2ece781b5ec6b3d0a4d30975cfc6580245"
+    }
+  ]
+}

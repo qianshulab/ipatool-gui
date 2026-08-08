@@ -1,0 +1,105 @@
+{
+  "name": "ipatool",
+  "version": "2.3.2",
+  "source_repository": "https://github.com/majd/ipatool",
+  "source_tag": "https://github.com/majd/ipatool/tree/v2.3.2",
+  "source_commit": "ab79e429d5d5d3da6879711f6e04b8a240aabd94",
+  "release_url": "https://github.com/majd/ipatool/releases/tag/v2.3.2",
+  "published_at": "2026-08-03T08:00:05Z",
+  "license": {
+    "spdx": "MIT",
+    "copyright": "Copyright (c) 2021 Majd Alfhaily",
+    "path": "third_party/ipatool/2.3.2/LICENSE",
+    "size_bytes": 1069,
+    "sha256": "3466fcf0483597283e184031a9f1f0d142d7f41004452cf7714182742a503a95"
+  },
+  "release_members": {
+    "Windows": {
+      "amd64": {
+        "path": "bin/ipatool-2.3.2-windows-amd64.exe",
+        "size_bytes": 33779712,
+        "sha256": "7da96104954d4a9625dcec5f18bf64df62107ada37822ca953e2fe503a69d079"
+      },
+      "arm64": {
+        "path": "bin/ipatool-2.3.2-windows-arm64.exe",
+        "size_bytes": 32168960,
+        "sha256": "597bfe13762137eda37ec10e6efb2decb074c0f801e65474b5d0f6f1b8899de7"
+      }
+    },
+    "Darwin": {
+      "amd64": {
+        "path": "bin/ipatool-2.3.2-macos-amd64",
+        "size_bytes": 34539872,
+        "sha256": "9d896b22fead634334164114c42ce3c86a31053601130689171c03411c4fed31"
+      },
+      "arm64": {
+        "path": "bin/ipatool-2.3.2-macos-arm64",
+        "size_bytes": 33204738,
+        "sha256": "d7fe54d4fff9adbd4dbe10267c098ee22ae3e35b71b9af4536ee8fe8bd7173d4"
+      }
+    },
+    "Linux": {
+      "amd64": {
+        "path": "bin/ipatool-2.3.2-linux-amd64",
+        "size_bytes": 33673600,
+        "sha256": "33a2838cc3eda6bf620f18873c58ff7a6c7224dbcf88cb726d094caa60ef11fb"
+      },
+      "arm64": {
+        "path": "bin/ipatool-2.3.2-linux-arm64",
+        "size_bytes": 32230896,
+        "sha256": "b192160f94361783706be792bcca2a1e30d181c9b44f55c85296e3863c824753"
+      }
+    }
+  },
+  "release_archives": {
+    "Windows": {
+      "amd64": {
+        "url": "https://github.com/majd/ipatool/releases/download/v2.3.2/ipatool-2.3.2-windows-amd64.tar.gz",
+        "size_bytes": 15264571,
+        "sha256": "6352441f6f91df7947aaa203b19cb7d3c9d77920fc466dd784ff9cae88db5c92"
+      },
+      "arm64": {
+        "url": "https://github.com/majd/ipatool/releases/download/v2.3.2/ipatool-2.3.2-windows-arm64.tar.gz",
+        "size_bytes": 14200473,
+        "sha256": "9acb5ec15577ba84dffc14c428022fe70f5be44df33fcd6158bbb5fdf18ad668"
+      }
+    },
+    "Darwin": {
+      "amd64": {
+        "url": "https://github.com/majd/ipatool/releases/download/v2.3.2/ipatool-2.3.2-macos-amd64.tar.gz",
+        "size_bytes": 16053466,
+        "sha256": "d1861a0e00ae78ca1982530b7732b3e105dc789eed99a767b4038b6b9473424e"
+      },
+      "arm64": {
+        "url": "https://github.com/majd/ipatool/releases/download/v2.3.2/ipatool-2.3.2-macos-arm64.tar.gz",
+        "size_bytes": 15109893,
+        "sha256": "7c5a35a532de21240fcd0d5a4f3204c97dcb4b1e43df05b2487ad12378c0c044"
+      }
+    },
+    "Linux": {
+      "amd64": {
+        "url": "https://github.com/majd/ipatool/releases/download/v2.3.2/ipatool-2.3.2-linux-amd64.tar.gz",
+        "size_bytes": 14943906,
+        "sha256": "7555b67612a196bad1961c3a6fbc2d1f115b5e7a4925e9b4a285ed2b99082077"
+      },
+      "arm64": {
+        "url": "https://github.com/majd/ipatool/releases/download/v2.3.2/ipatool-2.3.2-linux-arm64.tar.gz",
+        "size_bytes": 13896132,
+        "sha256": "2e7ed31d76eaa145a6147985fe5fbae1eaa4ad213648f74bc30a2b059cbd39c7"
+      }
+    }
+  },
+  "artifacts": {
+    "windows_amd64_archive": {
+      "name": "ipatool-2.3.2-windows-amd64.tar.gz",
+      "url": "https://github.com/majd/ipatool/releases/download/v2.3.2/ipatool-2.3.2-windows-amd64.tar.gz",
+      "size_bytes": 15264571,
+      "sha256": "6352441f6f91df7947aaa203b19cb7d3c9d77920fc466dd784ff9cae88db5c92"
+    },
+    "windows_amd64_executable": {
+      "path": "ipatool-2.3.2-windows-amd64.exe",
+      "size_bytes": 33779712,
+      "sha256": "7da96104954d4a9625dcec5f18bf64df62107ada37822ca953e2fe503a69d079"
+    }
+  }
+}

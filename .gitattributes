@@ -1,0 +1,7 @@
+# Preserve byte-pinned third-party provenance files across Windows checkouts.
+LICENSE text eol=lf
+THIRD_PARTY_NOTICES.md text eol=lf
+third_party/**/LICENSE text eol=lf
+third_party/**/LICENSE.* text eol=lf
+third_party/**/COPYING.txt text eol=lf
+third_party/**/*.json text eol=lf

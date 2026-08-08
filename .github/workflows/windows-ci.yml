@@ -1,0 +1,82 @@
+---
+name: Windows CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-build:
+    name: Test and build (Windows x64)
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      PYTHONPATH: ""
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Set up Python 3.11.9 x64
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: "3.11.9"
+          architecture: x64
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            requirements-lock.txt
+
+      - name: Install hash-locked dependencies
+        run: "python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r requirements-lock.txt"
+
+      - name: Verify bundled ipatool provenance and CLI
+        run: python scripts/verify_release_inputs.py
+
+      - name: Prepare Windows version metadata
+        run: python -m scripts.prepare_package_metadata --windows-version-file build/windows-version-info.txt
+
+      - name: Run tests
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python -m unittest discover -s tests -v
+
+      - name: Build one-file Windows executable
+        run: >-
+          python -m PyInstaller --noconfirm --clean --windowed --onefile
+          --name "IPA-Download-Tool" --icon "assets/exe.ico"
+          --version-file build/windows-version-info.txt
+          --add-data "assets/exe.png;assets"
+          --add-data "LICENSE;."
+          --add-data "THIRD_PARTY_NOTICES.md;."
+          --add-data "third_party;third_party"
+          --add-data "ipatool-2.3.2-windows-amd64.exe;." main.py
+
+      - name: Verify PyInstaller archive bytes
+        run: python scripts/verify_built_archive.py dist\IPA-Download-Tool.exe
+
+      - name: Smoke-test GUI startup
+        shell: pwsh
+        run: |
+          $process = Start-Process -FilePath .\dist\IPA-Download-Tool.exe -PassThru
+          Start-Sleep -Seconds 10
+          if ($process.HasExited) {
+            throw "GUI exited during startup with code $($process.ExitCode)"
+          }
+          Stop-Process -Id $process.Id -Force
+
+      - name: Upload unsigned CI artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        with:
+          name: IPA-Download-Tool-windows-x64-unsigned
+          path: |
+            dist/IPA-Download-Tool.exe
+            LICENSE
+            THIRD_PARTY_NOTICES.md
+            third_party/**
+          if-no-files-found: error
+          retention-days: 7
