@@ -1,9 +1,13 @@
 import json
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from core.ipatool_release import IPATOOL_RELEASES
-from scripts.verify_release_inputs import parse_locked_requirements
+from scripts.verify_release_inputs import (
+    parse_locked_requirements,
+    verify_python_build_environment,
+)
 
 
 class ReleaseDependencyLockTests(unittest.TestCase):
@@ -41,18 +45,25 @@ class ReleaseDependencyLockTests(unittest.TestCase):
             self.root / ".github" / "workflows" / "windows-ci.yml"
         ).read_text(encoding="utf-8")
         readme = (self.root / "README.md").read_text(encoding="utf-8")
+        manifest = json.loads(
+            (self.root / "third_party" / "python" / "manifest.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        expected_python = manifest["build_environment"]["python"]
 
         self.assertIn("requirements-lock.txt", workflow)
         self.assertIn(
             "python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r requirements-lock.txt",
             workflow,
         )
-        self.assertIn('python-version: "3.11.9"', workflow)
+        self.assertIn(f'python-version: "{expected_python}"', workflow)
         self.assertIn("requirements-lock.txt", readme)
         self.assertIn("--require-hashes", readme)
         self.assertIn("--only-binary=:all:", readme)
-        self.assertIn("Python 3.11.15", readme)
+        self.assertIn(f"Python {expected_python}", readme)
         self.assertIn("uv pip compile requirements-dev.txt", readme)
+        self.assertIn(f"--python-version {expected_python}", readme)
 
     def test_ci_verifies_built_archive_bytes_and_bundles_project_license(self):
         workflow = (
@@ -110,10 +121,43 @@ class ReleaseDependencyLockTests(unittest.TestCase):
         self.assertIn("scripts/verify_built_archive.py", workflow)
         self.assertIn("gh release create", workflow)
         self.assertIn("gh release upload", workflow)
-        self.assertIn("github.ref_type == 'tag'", workflow)
+        self.assertIn(
+            "if: github.event_name == 'push' && github.ref_type == 'tag'",
+            workflow,
+        )
         self.assertIn("contents: write", workflow)
         self.assertIn("actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02", workflow)
         self.assertIn("actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0", workflow)
+
+    def test_release_builds_use_the_declared_python_patch_version(self):
+        manifest = json.loads(
+            (self.root / "third_party" / "python" / "manifest.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        expected = manifest["build_environment"]["python"]
+        release = (
+            self.root / ".github" / "workflows" / "release.yml"
+        ).read_text(encoding="utf-8")
+        windows = (
+            self.root / ".github" / "workflows" / "windows-ci.yml"
+        ).read_text(encoding="utf-8")
+
+        self.assertEqual(release.count(f'python-version: "{expected}"'), 2)
+        self.assertEqual(windows.count(f'python-version: "{expected}"'), 1)
+
+    def test_release_verifier_rejects_python_patch_version_drift(self):
+        manifest = {"build_environment": {"python": "3.11.15"}}
+
+        with patch(
+            "scripts.verify_release_inputs.platform.python_version",
+            return_value="3.11.9",
+        ):
+            with self.assertRaisesRegex(
+                RuntimeError,
+                "Python version mismatch: expected 3.11.15, got 3.11.9",
+            ):
+                verify_python_build_environment(manifest, {})
 
     def test_release_member_manifest_matches_runtime_pins(self):
         manifest = json.loads(

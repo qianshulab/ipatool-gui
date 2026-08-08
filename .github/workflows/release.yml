@@ -172,7 +172,7 @@ jobs:
 
   publish-release:
     name: Publish GitHub Release
-    if: github.ref_type == 'tag'
+    if: github.event_name == 'push' && github.ref_type == 'tag'
     needs:
       - build-windows
       - build-macos

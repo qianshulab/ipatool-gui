@@ -166,7 +166,7 @@ QT_QPA_PLATFORM=offscreen python -m unittest discover -s tests -v
 <details>
 <summary><strong>Windows 可复现构建命令</strong></summary>
 
-以下命令面向干净的 Windows x64 / Python 3.11.15 环境，并要求清空 `PYTHONPATH`：
+以下命令面向干净的 Windows x64 / Python 3.11.9 环境，并要求清空 `PYTHONPATH`：
 
 ```bash
 python --version
@@ -174,7 +174,7 @@ python -m pip install --disable-pip-version-check --require-hashes --only-binary
 
 # 仅在有意更新依赖时重新生成锁文件
 uv pip compile requirements-dev.txt --python-platform x86_64-pc-windows-msvc \
-  --python-version 3.11.15 --generate-hashes --only-binary :all: \
+  --python-version 3.11.9 --generate-hashes --only-binary :all: \
   -o requirements-lock.txt
 
 python scripts/verify_release_inputs.py

@@ -3,12 +3,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from PyQt6.QtGui import QImage
+
 from app_metadata import (
     APP_BUNDLE_IDENTIFIER,
     APP_NAME,
     APP_ORGANIZATION,
     APP_VERSION,
 )
+from core.ipatool_release import IPATOOL_VERSION
 from scripts.prepare_package_metadata import (
     check_release_ref,
     stamp_macos_plist,
@@ -96,6 +99,13 @@ class AppMetadataTests(unittest.TestCase):
         self.assertIn("下载最新版 v1.0.0", readme)
         self.assertIn("releases/download/v1.0.0/IPA-Download-Tool-1.0.0", readme)
         self.assertNotIn("v1." + "2.2", readme)
+
+    def test_readme_screenshot_records_current_product_versions(self):
+        screenshot = QImage(str(self.root / "assets" / "main-window.png"))
+
+        self.assertFalse(screenshot.isNull())
+        self.assertEqual(screenshot.text("ApplicationVersion"), APP_VERSION)
+        self.assertEqual(screenshot.text("BundledIpatoolVersion"), IPATOOL_VERSION)
 
 
 if __name__ == "__main__":

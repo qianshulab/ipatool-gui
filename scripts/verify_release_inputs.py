@@ -57,11 +57,9 @@ def verify_python_build_environment(
 ) -> None:
     expected_python = python_manifest["build_environment"]["python"]
     actual_python = platform.python_version()
-    expected_minor = ".".join(expected_python.split(".")[:2])
-    actual_minor = ".".join(actual_python.split(".")[:2])
-    if actual_minor != expected_minor:
+    if actual_python != expected_python:
         raise RuntimeError(
-            f"Python minor version mismatch: expected {expected_minor}, got {actual_python}"
+            f"Python version mismatch: expected {expected_python}, got {actual_python}"
         )
     if os.environ.get("PYTHONPATH"):
         raise RuntimeError("PYTHONPATH must be empty for a release build")

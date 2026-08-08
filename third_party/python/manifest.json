@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "build_environment": {
-    "python": "3.11.15",
+    "python": "3.11.9",
     "platform": "Windows x86-64"
   },
   "packages": [
